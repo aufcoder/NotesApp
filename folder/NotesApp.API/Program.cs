@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using NotesApp.API.Data;
+
 namespace NotesApp.API
 {
     public class Program
@@ -12,6 +15,12 @@ namespace NotesApp.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+            builder.Services.AddDbContext<NotesDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("NotesAppConnectionString"));
+            });
 
             var app = builder.Build();
 
